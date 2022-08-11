@@ -8,11 +8,11 @@ import {
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Carousel from 'react-native-snap-carousel';
+import { MaterialIcons } from '@expo/vector-icons';
 import colors from '../constants/colors';
 import Block from '../components/Block';
 import Text from '../components/Text';
 import bg from '../../assets/fe-imgs/black-car.jpg';
-import { MaterialIcons } from '@expo/vector-icons';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,20 +35,45 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Home = ({ navigation }) => {
+const CarouselRow = ({ brand }) => {
+  // ppd == price per day
   const [, setActiveIndex] = useState(0);
-  const [carouselItems, _] = useState([
-    {
-      title: '1',
-      text: '2',
-    },
-    {
-      title: 'Item 2',
-      text: 'Text 2',
-    },
-  ]);
+  let carouselItems;
+  switch (brand) {
+    case 'AUDI':
+      carouselItems = [
+        {
+          model: 'Rolls-Royce Cullinan',
+          ppd: '$2100 / Day',
+          stars: '4.9',
+        },
+        {
+          model: 'Rolls-Royce Bolewan',
+          ppd: '$3000 / Day',
+          stars: '4.8',
+        },
+      ];
+      break;
+    case 'BMW':
+      carouselItems = [
+        {
+          model: 'BMW Cullinan',
+          ppd: '$2100 / Day',
+          stars: '4.9',
+        },
+        {
+          model: 'bmw Bolewan',
+          ppd: '$3000 / Day',
+          stars: '4.8',
+        },
+      ];
+      break;
 
-  const _renderItem = ({ item, index }) => {
+    default:
+      break;
+  }
+
+  const _renderItem = ({ item }) => {
     return (
       <ImageBackground
         source={bg}
@@ -62,18 +87,47 @@ export const Home = ({ navigation }) => {
       >
         <Block row center>
           <MaterialIcons name="stars" size={18} color="white" />
-          <Text style={{ color: colors.white, marginLeft: 2 }}>5.0</Text>
+          <Text style={{ color: colors.white, marginLeft: 2 }}>
+            {item.stars}
+          </Text>
         </Block>
         <Block style={{ marginTop: '75%' }}>
           <Text bold size={20} style={{ color: colors.white }}>
-            Rolls-Royce Cullinan
+            {item.model}
           </Text>
-          <Text style={{ color: colors.white, marginTop: 5 }}>$2100 / Day</Text>
+          <Text style={{ color: colors.white, marginTop: 5 }}>{item.ppd}</Text>
         </Block>
       </ImageBackground>
     );
   };
 
+  return (
+    <>
+      <Block row middle space="between" style={{ marginTop: 10 }}>
+        <Text bold>{brand}</Text>
+        <Text light>icon</Text>
+      </Block>
+
+      <Block
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}
+      >
+        <Carousel
+          layout={'default'}
+          data={carouselItems}
+          sliderWidth={100}
+          itemWidth={200}
+          renderItem={_renderItem}
+          onSnapToItem={index => setActiveIndex(index)}
+        />
+      </Block>
+    </>
+  );
+};
+
+export const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Block row middle>
@@ -96,29 +150,12 @@ export const Home = ({ navigation }) => {
           <Text bold>icon</Text>
         </Block>
       </Block>
-
-      <Block row middle space="between" style={{ marginTop: 10 }}>
-        <Text bold>AUDI</Text>
-        <Text light>icon</Text>
-      </Block>
-
-      <Block
-        style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}
-      >
-        <Carousel
-          layout={'default'}
-          data={carouselItems}
-          sliderWidth={100}
-          itemWidth={200}
-          renderItem={_renderItem}
-          onSnapToItem={index => setActiveIndex(index)}
-        />
-      </Block>
-
-      <Block row middle space="between" style={{ marginTop: 10 }}>
+      <CarouselRow brand="AUDI" />
+      <CarouselRow brand="BMW" />
+      {/* <Block row middle space="between" style={{ marginTop: 10 }}>
         <Text bold>BMW</Text>
         <Text light>icon</Text>
-      </Block>
+      </Block> */}
       {/* <Block row middle space="between" style={{ marginTop: 10 }}>
         <Text bold>LAMBOGHINI</Text>
         <Text light>icon</Text>
