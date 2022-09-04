@@ -10,6 +10,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Carousel from 'react-native-snap-carousel';
 import { MaterialIcons, AntDesign } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import colors from '../constants/colors';
 import Block from '../components/Block';
 import Text from '../components/Text';
@@ -226,31 +227,40 @@ const CarouselRow = ({ brand }) => {
   }
 
   const _renderItem = ({ item }) => {
-    console.log(item);
     return (
-      <ImageBackground
-        source={item.image}
-        resizeMode="contain"
-        imageStyle={{ borderRadius: 30 }}
-        style={{
-          width: 200,
-          height: 250,
-          padding: 20,
-        }}
+      <LinearGradient
+        // Button Linear Gradient
+        colors={['transparent', '#000']}
+        style={{ borderRadius: 30  }}
       >
-        <Block row center>
-          <MaterialIcons name="stars" size={18} color="white" />
-          <Text style={{ color: colors.white, marginLeft: 2 }}>
-            {item.stars}
-          </Text>
-        </Block>
-        {/* <Block style={{ marginTop: '75%' }}>
-          <Text bold size={20} style={{ color: colors.white }}>
-            {item.model}
-          </Text>
-          <Text style={{ color: colors.white, marginTop: 5 }}>{item.ppd}</Text>
-        </Block> */}
-      </ImageBackground>
+        <ImageBackground
+          source={item.image}
+          resizeMode="contain"
+          imageStyle={{ borderRadius: 30 }}
+          style={{
+            width: 200,
+            height: 250,
+            overflow: 'hidden',
+            padding: 20,
+          }}
+        >
+          <Block row center>
+            <MaterialIcons name="stars" size={18} color="darkgoldenrod" />
+            <Text style={{ color: colors.black, marginLeft: 2 }}>
+              {item.stars}
+            </Text>
+          </Block>
+          {/* <Block row center style={{ background: "#000" }}></Block> */}
+          <Block style={{ marginTop: '75%' }}>
+            <Text bold size={20} style={{ color: colors.white }}>
+              {item.model}
+            </Text>
+            <Text style={{ color: colors.white, marginTop: 5 }}>
+              {item.ppd}
+            </Text>
+          </Block>
+        </ImageBackground>
+      </LinearGradient>
     );
   };
 
@@ -324,20 +334,8 @@ export const Home = ({ navigation }) => {
       >
         <CarouselRow brand="AUDI" />
         <CarouselRow brand="BMW" />
-        <CarouselRow brand="ROLLS-ROYCE" />
+        {/* <CarouselRow brand="ROLLS-ROYCE" /> */}
       </ScrollView>
-      {/* <Block row middle space="between" style={{ marginTop: 10 }}>
-        <Text bold>BMW</Text>
-        <Text light>icon</Text>
-      </Block> */}
-      {/* <Block row middle space="between" style={{ marginTop: 10 }}>
-        <Text bold>LAMBOGHINI</Text>
-        <Text light>icon</Text>
-      </Block>
-      <Block row middle space="between" style={{ marginTop: 10 }}>
-        <Text bold>ROLLS ROYCE</Text>
-        <Text light>icon</Text>
-      </Block> */}
     </SafeAreaView>
   );
 };
