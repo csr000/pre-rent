@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { Home } from '../screens/Home';
 import { GetStarted } from '../screens/GetStarted';
+import Map from '../screens/Map';
 
 const MainStack = createStackNavigator();
 
@@ -12,6 +13,7 @@ export const Main = () => (
       headerShown: false,
     }}
   >
+    <MainStack.Screen name="Map" component={Map} />
     <MainStack.Screen name="Home" component={Home} />
     <MainStack.Screen name="GetStarted" component={GetStarted} />
   </MainStack.Navigator>
