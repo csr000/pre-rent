@@ -231,7 +231,7 @@ const CarouselRow = ({ brand }) => {
       <LinearGradient
         // Button Linear Gradient
         colors={['transparent', '#000']}
-        style={{ borderRadius: 30  }}
+        style={{ borderRadius: 30 }}
       >
         <ImageBackground
           source={item.image}
@@ -292,7 +292,7 @@ const CarouselRow = ({ brand }) => {
   );
 };
 
-export const Home = ({ navigation }) => {
+export default function Home() {
   return (
     <SafeAreaView style={styles.container}>
       <Block row middle>
@@ -338,4 +338,4 @@ export const Home = ({ navigation }) => {
       </ScrollView>
     </SafeAreaView>
   );
-};
+}

@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const GetStarted = ({ navigation }) => {
+export default function GetStarted({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -70,4 +70,4 @@ export const GetStarted = ({ navigation }) => {
       </ImageBackground>
     </SafeAreaView>
   );
-};
+}
