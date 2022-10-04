@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import { Dimensions, Pressable, TextInput } from 'react-native';
+import { Dimensions, TextInput, Image, TouchableOpacity } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
-
+import Carousel from 'react-native-snap-carousel';
 import {
   AntDesign,
   FontAwesome,
@@ -14,12 +14,22 @@ import Block from '../components/Block';
 import Text from '../components/Text';
 import colors from '../constants/colors';
 
+const _renderItem = ({ item }) => {
+  return (
+    <Image
+      source={item.src}
+      resizeMode="contain"
+      style={{ width: 300, height: 300 }}
+    />
+  );
+};
+
 const Card = () => {
   // ref
   const bottomSheetRef = useRef(null);
 
   // variables
-  const snapPoints = useMemo(() => ['2%', '60%'], []);
+  const snapPoints = useMemo(() => ['2%', '35%'], []);
 
   // callbacks
   const handleSheetChanges = useCallback(index => {
@@ -38,6 +48,13 @@ const Card = () => {
     borderRadius: 15,
   };
 
+  const isCarousel = React.useRef(null);
+  const cardImgs = [
+    { src: require('../../assets/fe-imgs/card1.png') },
+    { src: require('../../assets/fe-imgs/card2.png') },
+    { src: require('../../assets/fe-imgs/card3.png') },
+  ];
+
   // renders
   return (
     <SafeAreaView
@@ -51,7 +68,9 @@ const Card = () => {
         <Block backgroundColor={colors.white} padding={10} borderRadius={15}>
           <Ionicons name="ios-arrow-back" size={24} color={colors.deepGray} />
         </Block>
-        <Text>IMG</Text>
+        <Text>
+          <MaterialIcons name="account-circle" size={24} color="black" />
+        </Text>
       </Block>
       <Block marginTop={70}>
         <Block row center space="between">
@@ -96,6 +115,63 @@ const Card = () => {
             </Block>
           </Block>
         </Block>
+        <Carousel
+          layout="tinder"
+          ref={isCarousel}
+          data={cardImgs}
+          renderItem={_renderItem}
+          sliderWidth={scaleWidth}
+          itemWidth={300}
+        />
+        <Block row>
+          <Block
+            row
+            center
+            space="between"
+            backgroundColor="#F9F9F9"
+            width={scaleWidth - 120}
+            padding={10}
+            marginBottom={30}
+            borderRadius={10}
+          >
+            <TextInput placeholder="Promo Code" />
+            <TouchableOpacity>
+              <Block
+                backgroundColor={colors.black}
+                padding={5}
+                borderRadius={7}
+                opacity={0.9}
+              >
+                <Text color={colors.gray}>Apply</Text>
+              </Block>
+            </TouchableOpacity>
+          </Block>
+          <TouchableOpacity>
+            <Block
+              backgroundColor={colors.black}
+              padding={10}
+              marginTop={5}
+              borderRadius={7}
+              opacity={0.9}
+            >
+              <Text color={colors.white}>Add New Card</Text>
+            </Block>
+          </TouchableOpacity>
+        </Block>
+        <TouchableOpacity>
+          <Block
+            center
+            backgroundColor={colors.black}
+            paddingHorizontal={20}
+            paddingVertical={20}
+            borderRadius={20}
+            width={scaleWidth}
+          >
+            <Text bold color={colors.gray} size={18}>
+              Pay Now
+            </Text>
+          </Block>
+        </TouchableOpacity>
       </Block>
       <BottomSheet
         ref={bottomSheetRef}
@@ -167,7 +243,7 @@ const Card = () => {
             height={1}
             width={scaleWidth}
           />
-          <Pressable>
+          <TouchableOpacity>
             <Block
               center
               backgroundColor={colors.black}
@@ -180,7 +256,7 @@ const Card = () => {
                 Save Card
               </Text>
             </Block>
-          </Pressable>
+          </TouchableOpacity>
         </Block>
       </BottomSheet>
     </SafeAreaView>
