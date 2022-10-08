@@ -9,6 +9,7 @@ export default class Block extends Component {
       column,
       center,
       middle,
+      left,
       right,
       space,
       style,
@@ -21,6 +22,7 @@ export default class Block extends Component {
       flex === 'disabled' && { flex: 0 },
       center && styles.center,
       middle && styles.middle,
+      left && styles.left,
       right && styles.right,
       space && { justifyContent: `space-${space}` },
       row && styles.row,
@@ -51,6 +53,9 @@ const styles = StyleSheet.create({
   },
   middle: {
     justifyContent: 'center',
+  },
+  left: {
+    justifyContent: 'flex-start',
   },
   right: {
     justifyContent: 'flex-end',
