@@ -2,29 +2,21 @@ import React from 'react';
 import {
   StyleSheet,
   Dimensions,
-  Pressable,
+  TouchableOpacity,
   ImageBackground,
 } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
-import colors from '../constants/colors';
-import Block from '../components/Block';
-import Text from '../components/Text';
-
-import bg from '../../assets/fe-imgs/black-car.jpg';
+import colors from '../../constants/colors';
+import Block from '../../components/Block';
+import Text from '../../components/Text';
+import bg from '../../../assets/fe-imgs/black-car.jpg';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.black,
     color: '#fff',
-  },
-  getStarted: {
-    backgroundColor: 'rgba(255,255,255,0.25)',
-    paddingVertical: 20,
-    paddingHorizontal: 100,
-    borderRadius: 20,
-    marginTop: 150,
   },
 });
 
@@ -39,7 +31,6 @@ export default function GetStarted({ navigation }) {
           height: Dimensions.get('window').height,
           marginTop: 70,
           paddingHorizontal: 30,
-          // alignItems: 'center',
         }}
       >
         {/* <Block>
@@ -58,14 +49,22 @@ export default function GetStarted({ navigation }) {
           </Text>
         </Block>
         <Block row center middle>
-          <Pressable
+          <TouchableOpacity
             onPress={() => navigation.navigate('Home')}
             style={styles.getStarted}
           >
-            <Text bold color={colors.white} size={20}>
-              Get Started
-            </Text>
-          </Pressable>
+            <Block
+              backgroundColor="rgba(255,255,255,0.25)"
+              paddingVertical={20}
+              paddingHorizontal={100}
+              borderRadius={20}
+              marginTop={150}
+            >
+              <Text bold color={colors.white} size={20}>
+                Get Started
+              </Text>
+            </Block>
+          </TouchableOpacity>
         </Block>
       </ImageBackground>
     </SafeAreaView>

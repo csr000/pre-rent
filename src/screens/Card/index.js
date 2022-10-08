@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef } from 'react';
-import { Dimensions, TextInput, Image, TouchableOpacity } from 'react-native';
+import { TextInput, Image, TouchableOpacity } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
 import Carousel from 'react-native-snap-carousel';
 import {
@@ -10,19 +10,10 @@ import {
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Block from '../components/Block';
-import Text from '../components/Text';
-import colors from '../constants/colors';
-
-const _renderItem = ({ item }) => {
-  return (
-    <Image
-      source={item.src}
-      resizeMode="contain"
-      style={{ width: 300, height: 300 }}
-    />
-  );
-};
+import Block from '../../components/Block';
+import Text from '../../components/Text';
+import colors from '../../constants/colors';
+import { scaleWidth } from '../utils';
 
 const Card = () => {
   // ref
@@ -36,9 +27,12 @@ const Card = () => {
     console.log('handleSheetChanges', index);
   }, []);
 
-  const screenWidth = Dimensions.get('screen').width;
-  const scaleWidth = screenWidth - 40;
-
+  const cardImgs = [
+    { src: require('../../../assets/fe-imgs/card1.png') },
+    { src: require('../../../assets/fe-imgs/card2.png') },
+    { src: require('../../../assets/fe-imgs/card3.png') },
+  ];
+  const isCarousel = React.useRef(null);
   const categoryStyle = {
     margin: 10,
     paddingHorizontal: 10,
@@ -48,14 +42,16 @@ const Card = () => {
     borderRadius: 15,
   };
 
-  const isCarousel = React.useRef(null);
-  const cardImgs = [
-    { src: require('../../assets/fe-imgs/card1.png') },
-    { src: require('../../assets/fe-imgs/card2.png') },
-    { src: require('../../assets/fe-imgs/card3.png') },
-  ];
+  const _renderItem = ({ item }) => {
+    return (
+      <Image
+        source={item.src}
+        resizeMode="contain"
+        style={{ width: 300, height: 300 }}
+      />
+    );
+  };
 
-  // renders
   return (
     <SafeAreaView
       style={{
